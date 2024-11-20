@@ -10,20 +10,27 @@
 - GitOps principles are not exclusive to Kubernetes and can be extended to other infrastructures.
 - While GitOps doesn't strictly require Git, its tooling and workflows are deeply aligned with Git's capabilities. Using a different VCS for GitOps is possible but might involve extra effort and customizations.
 
+______________________________________________________________________________________________
+
 ### Key Principles of GitOps
 
-1. **Declarative Configuration:**
+**Declarative Configuration:**
 - All system states (infrastructure, applications, etc.) are defined declaratively in code.
 - Common tools: YAML manifests for Kubernetes, Terraform for infrastructure.
-2. **Git as the Source of Truth:**
+
+**Git as the Source of Truth:**
 - The desired state of the system is version-controlled in Git.
 - Git's version history serves as a record of changes.
-3. **Automation and Reconciliation:**
+
+**Automation and Reconciliation:**
 - A GitOps operator (e.g., Flux, ArgoCD) watches the Git repository and automatically applies changes to the system.
 - It continuously reconciles the actual state with the desired state.
-4. **Security & Self-Healing Systems:**
+
+**Security & Self-Healing Systems:**
 - If the actual state deviates (e.g., manual changes or system failures), the GitOps operator brings it back to the desired state.
 - Unauthorized changes to the cluster are overridden, as the system only accepts changes from Git.
+
+___________________________________________________________________________________________
 
 ### GitOps Workflow
 
@@ -46,6 +53,8 @@
 
 **Example:** Imagine someone modifies a Kubernetes cluster directly using ```kubectl apply``` or a script. If issues arise later, there’s no easy way to track or roll back those changes. This lack of tracking and auditability poses risks.
 
+_________________________________________________________________________________________
+
 ### Real-World Use Cases:
 
 - **Continuous Delivery in Kubernetes:** Automating updates for microservices hosted on Kubernetes clusters.
@@ -53,12 +62,16 @@
 - **Disaster Recovery:** Quick rollbacks to stable states in case of failed deployments.
 - **Compliance and Auditing:** Git serves as an audit log for all cluster changes.
 
+________________________________________________________________________________________
+
 ### GitOps Tools:
 
 - **FluxCD:** A lightweight GitOps tool for Kubernetes. Watches a Git repository and applies changes automatically.
 - **ArgoCD:** A more feature-rich GitOps tool, ideal for complex Kubernetes environments. Provides a web interface and integrates well with CI/CD pipelines.
 - **Jenkins X:** Combines CI/CD capabilities with GitOps.
 - **Spinnaker:** Primarily a deployment tool, not entirely GitOps-focused.
+
+_________________________________________________________________________________________
 
 ### Applications Beyond Kubernetes
 
@@ -89,6 +102,8 @@ ________________________________________________________________________________
 - **Selective Syncing:** Use GitOps configurations to exclude unmanaged namespaces or applications from reconciliation.
 - **Gradual Onboarding:** Begin with a subset of resources, testing and validating the reconciliation behavior before full-scale adoption.
 
+_______________________________________________________________________________________________
+
 ### GitOps Handling Admission Controller Changes:
 
 When an admission controller modifies pod configurations (e.g., adding resource requests, limits, or annotations), GitOps tools may attempt to revert these changes to align with the repository. This can lead to issues such as deployment failures in clusters with mandatory policies.
@@ -100,3 +115,4 @@ When an admission controller modifies pod configurations (e.g., adding resource 
 
 By aligning the Git repository with mandatory cluster policies and using tools to manage overrides, GitOps ensures smoother reconciliation and compliance.
 
+_______________________________________________________________________________________________
